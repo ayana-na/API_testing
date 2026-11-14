@@ -1,0 +1,1559 @@
+{
+  "info": {
+    "_postman_id": "d2e094e0-3933-4744-bb3a-698710fd5a7a",
+    "name": "StorePI_API_Automation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48087574",
+    "_collection_link": "https://go.postman.co/collection/48087574-d2e094e0-3933-4744-bb3a-698710fd5a7a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "01 Smoke & Catalog",
+      "item": [
+        {
+          "name": "GET /products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 5000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON\", function () {",
+                  "    pm.expect(body).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"Products data exists\", function () {",
+                  "    pm.expect(body).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Products data is an array\", function () {",
+                  "    pm.expect(body.data).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Products list is not empty\", function () {",
+                  "    pm.expect(body.data.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"First product has required fields\", function () {",
+                  "    pm.expect(body.data[0]).to.have.property(\"id\");",
+                  "    pm.expect(body.data[0]).to.have.property(\"name\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /categories",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 5000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains data\", function () {",
+                  "    pm.expect(body).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Categories data is an array\", function () {",
+                  "    pm.expect(body.data).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Categories list is not empty\", function () {",
+                  "    pm.expect(body.data.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"Category has required ID\", function () {",
+                  "    pm.expect(body.data[0]).to.have.property(\"id\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /brands",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 5000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains data\", function () {",
+                  "    pm.expect(body).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Brands data is an array\", function () {",
+                  "    pm.expect(body.data).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Brands list is not empty\", function () {",
+                  "    pm.expect(body.data.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"Brand has valid ID\", function () {",
+                  "    pm.expect(body.data[0]).to.have.property(\"id\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/brands",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "brands"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 Authentication",
+      "item": [
+        {
+          "name": "POST /signup - register dynamic user",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const timestamp = Date.now();",
+                  "pm.environment.set(\"email\", `qa_user_${timestamp}@test.com`);",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Signup status is 200/201\", () => {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 10000ms\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+                  "});",
+                  "",
+                  "pm.test(\"Signup response is not an error body\", () => {",
+                  "    pm.expect(body).to.not.have.property(\"error\");",
+                  "});",
+                  "",
+                  "pm.test(\"Registered email matches generated email\", () => {",
+                  "    pm.expect(body.data.user.email).to.eql(pm.environment.get(\"email\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"QA Student\",\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "signup"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /login - capture access_token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Login status is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 10000ms\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+                  "});",
+                  "",
+                  "pm.test(\"Extract and store JWT session token\", () => {",
+                  "    const token = body.data.access_token;",
+                  "    pm.expect(token).to.be.a(\"string\").and.not.empty;",
+                  "    pm.environment.set(\"access_token\", token);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 User Profile",
+      "item": [
+        {
+          "name": "GET /users/current (before update)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/current",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 5000ms\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test(\"Profile has an id and a name\", () => {",
+                  "    pm.expect(body.data).to.have.property(\"id\");",
+                  "    pm.expect(body.data.name).to.be.a(\"string\").and.not.empty;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PATCH /users/current",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Name was updated in response\", () => {",
+                  "    pm.expect(body.data[0].name).to.eql(\"Updated Test Student\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Updated Test Student\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/current",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/current (verify update persisted)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Name persisted after PATCH\", () => {",
+                  "    pm.expect(body.data.name).to.eql(\"Updated Test Student\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/current",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/current - no token (negative)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 401\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(401);",
+                  "});",
+                  "",
+                  "pm.test(\"Error object has a message string\", () => {",
+                  "    pm.expect(body).to.have.property(\"error\");",
+                  "    pm.expect(body.error).to.be.a(\"string\").and.not.empty;",
+                  "});",
+                  "",
+                  "pm.test(\"Error message says login is required\", () => {",
+                  "    pm.expect(body.error).to.include(\"logged in\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/current",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 Reviews",
+      "item": [
+        {
+          "name": "POST /reviews",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is not an error body\", () => {",
+                  "    pm.expect(body).to.not.have.property(\"error\");",
+                  "});",
+                  "",
+                  "pm.test(\"Review was created with the sent data\", () => {",
+                  "    pm.expect(body.data.product_id).to.eql(1);",
+                  "    pm.expect(body.data.rating).to.eql(5);",
+                  "    pm.expect(body.data.content).to.eql(\"Exceptional build quality and packaging!\");",
+                  "});",
+                  "",
+                  "pm.test(\"Capture review_id\", () => {",
+                  "    pm.expect(body.data.id).to.be.a(\"number\");",
+                  "    pm.environment.set(\"review_id\", body.data.id);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"product_id\": 1,\r\n  \"content\": \"Exceptional build quality and packaging!\",\r\n  \"rating\": 5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /reviews - duplicate (negative)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Duplicate review is rejected\", () => {",
+                  "    pm.expect(body).to.have.property(\"error\");",
+                  "    pm.expect(body.error).to.eql(\"Conflict\");",
+                  "});",
+                  "",
+                  "pm.test(\"Error body reports status 400\", () => {",
+                  "    pm.expect(body.status).to.eql(400);",
+                  "});",
+                  "",
+                  "pm.test(\"No review data returned\", () => {",
+                  "    pm.expect(body).to.not.have.property(\"data\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"product_id\": 1,\r\n  \"content\": \"Exceptional build quality and packaging!\",\r\n  \"rating\": 5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH /reviews/:id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is not an error body\", () => {",
+                  "    pm.expect(body).to.not.have.property(\"error\");",
+                  "});",
+                  "",
+                  "pm.test(\"Review content and rating were updated\", () => {",
+                  "    pm.expect(body.data.content).to.eql(\"Updated review comment\");",
+                  "    pm.expect(body.data.rating).to.eql(4);",
+                  "});",
+                  "",
+                  "pm.test(\"Updated review keeps the same id\", () => {",
+                  "    pm.expect(body.data.id).to.eql(Number(pm.environment.get(\"review_id\")));",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"content\": \"Updated review comment\",\r\n  \"rating\": 4\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/{{review_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "{{review_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /reviews/:id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(204);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has no body\", () => {",
+                  "    pm.expect(pm.response.text()).to.be.empty;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reviews/{{review_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "{{review_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05 Shopping Cart",
+      "item": [
+        {
+          "name": "POST /users/current/cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Cart contains product 1 with quantity 2\", () => {",
+                  "    const items = body.data[0].cart_products;",
+                  "    const item = items.find(p => p.product_id === 1);",
+                  "    pm.expect(item, \"product 1 in cart\").to.exist;",
+                  "    pm.expect(item.quantity).to.eql(2);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"product_id\": 1,\r\n  \"quantity\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/current/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current",
+                "cart"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/current/cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Cart contains product 1 with quantity 2\", () => {",
+                  "    const items = body.data[0].cart_products;",
+                  "    const item = items.find(p => p.product_id === 1);",
+                  "    pm.expect(item, \"product 1 in cart\").to.exist;",
+                  "    pm.expect(item.quantity).to.eql(2);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/current/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current",
+                "cart"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "06 Wishlist",
+      "item": [
+        {
+          "name": "POST /users/current/wishlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is not an error body\", () => {",
+                  "    pm.expect(body).to.not.have.property(\"error\");",
+                  "});",
+                  "",
+                  "pm.test(\"Wishlist contains product 2\", () => {",
+                  "    const items = body.data[0].wishlist_products;",
+                  "    const item = items.find(p => p.product_id === 2);",
+                  "    pm.expect(item, \"product 2 in wishlist\").to.exist;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"product_id\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/current/wishlist",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current",
+                "wishlist"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /users/current/wishlist - duplicate (negative)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Duplicate wishlist item is rejected\", () => {",
+                  "    pm.expect(body).to.have.property(\"error\");",
+                  "    pm.expect(body.error).to.include(\"already in your wishlist\");",
+                  "});",
+                  "",
+                  "pm.test(\"No wishlist data returned\", () => {",
+                  "    pm.expect(body).to.not.have.property(\"data\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"product_id\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/current/wishlist",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current",
+                "wishlist"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "07 Purchases",
+      "item": [
+        {
+          "name": "GET /purchases",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 5000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase data exists\", function () {",
+                  "    pm.expect(body).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Purchases data is an array\", function () {",
+                  "    pm.expect(body.data).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase records have IDs\", function () {",
+                  "    body.data.forEach(function (purchase) {",
+                  "        pm.expect(purchase).to.have.property(\"id\");",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/purchases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /purchases",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Purchase created successfully\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 10000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase response contains data\", function () {",
+                  "    pm.expect(body).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase data is an array\", function () {",
+                  "    pm.expect(body.data).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase record has an ID\", function () {",
+                  "    pm.expect(body.data[0]).to.have.property(\"id\");",
+                  "});",
+                  "",
+                  "pm.test(\"Capture purchase_id\", function () {",
+                  "    const purchaseId = body.data[0].id;",
+                  "",
+                  "    pm.expect(purchaseId).to.exist;",
+                  "",
+                  "    pm.environment.set(",
+                  "        \"purchase_id\",",
+                  "        String(purchaseId)",
+                  "    );",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"products\": [\r\n    {\r\n      \"product_id\": 2,\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/purchases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /purchases/:id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is below 5000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase data exists\", function () {",
+                  "    pm.expect(body).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase ID matches saved ID\", function () {",
+                  "    const purchaseId = Number(",
+                  "        pm.environment.get(\"purchase_id\")",
+                  "    );",
+                  "",
+                  "    const records = Array.isArray(body.data)",
+                  "        ? body.data",
+                  "        : [body.data];",
+                  "",
+                  "    pm.expect(",
+                  "        records.some(item => Number(item.id) === purchaseId)",
+                  "    ).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/purchases/{{purchase_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchases",
+                "{{purchase_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "08 E2E Workflows",
+      "item": [
+        {
+          "name": "E2E 1 - Register",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const timestamp = Date.now();",
+                  "",
+                  "const email = `e2e_${timestamp}@test.com`;",
+                  "",
+                  "pm.environment.set(\"e2e_email\", email);",
+                  "pm.environment.set(\"password\", \"TestPass123!\");",
+                  "",
+                  "console.log(\"E2E Email:\", email);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let body;",
+                  "",
+                  "pm.test(\"Registration status is successful\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time below 10000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains valid JSON\", function () {",
+                  "    body = pm.response.json();",
+                  "    pm.expect(body).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "",
+                  "    pm.test(\"Registration response contains data\", function () {",
+                  "        pm.expect(body).to.have.property(\"data\");",
+                  "    });",
+                  "",
+                  "    pm.test(\"Registered user has an ID\", function () {",
+                  "        pm.expect(body.data.user.id).to.exist;",
+                  "    });",
+                  "",
+                  "    pm.test(\"Registered email matches generated email\", function () {",
+                  "        pm.expect(body.data.user.email).to.eql(",
+                  "            pm.environment.get(\"e2e_email\")",
+                  "        );",
+                  "    });",
+                  "",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"E2E QA Student\",\r\n  \"email\": \"{{e2e_email}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "signup"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E2E 2 - Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "let body;",
+                  "",
+                  "pm.test(\"Login status is successful\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time below 10000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+                  "});",
+                  "",
+                  "pm.test(\"Login response contains valid JSON\", function () {",
+                  "    body = pm.response.json();",
+                  "    pm.expect(body).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "",
+                  "    pm.test(\"Login response contains data\", function () {",
+                  "        pm.expect(body).to.have.property(\"data\");",
+                  "    });",
+                  "",
+                  "    pm.test(\"JWT token captured successfully\", function () {",
+                  "        const token = body.data.access_token;",
+                  "",
+                  "        pm.expect(token).to.be.a(\"string\").and.not.empty;",
+                  "",
+                  "        pm.environment.set(\"access_token\", token);",
+                  "    });",
+                  "",
+                  "    pm.test(\"Logged-in user email is correct\", function () {",
+                  "        pm.expect(body.data.user.email).to.eql(",
+                  "            pm.environment.get(\"e2e_email\")",
+                  "        );",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"{{e2e_email}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E2E 3 - Add item to cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Item added to cart successfully\", () => {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time below 5000ms\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test(\"Cart response is not an error body\", () => {",
+                  "    pm.expect(body).to.not.have.property(\"error\");",
+                  "});",
+                  "",
+                  "pm.test(\"Cart contains the requested product\", () => {",
+                  "    const items = body.data[0].cart_products;",
+                  "    const item = items.find(p => Number(p.product_id) === 2);",
+                  "    pm.expect(item, \"product 2 in cart\").to.exist;",
+                  "    pm.expect(item.quantity).to.eql(2);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"product_id\": 2,\r\n  \"quantity\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/current/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "current",
+                "cart"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E2E 4 - Create purchase",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Purchase created successfully\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time below 10000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase response contains data\", function () {",
+                  "    pm.expect(body).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase response is an array\", function () {",
+                  "    pm.expect(body.data).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase ID exists\", function () {",
+                  "    const purchase = body.data[0];",
+                  "",
+                  "    pm.expect(purchase.id).to.exist;",
+                  "",
+                  "    pm.environment.set(",
+                  "        \"purchase_id\",",
+                  "        String(purchase.id)",
+                  "    );",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase contains product ID\", function () {",
+                  "    pm.expect(",
+                  "        body.data[0].products.some(function (product) {",
+                  "            return Number(product.product_id) === 2;",
+                  "        })",
+                  "    ).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"products\": [\r\n    {\r\n      \"product_id\": 2,\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/purchases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E2E 5 - Verify purchase",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "pm.test(\"Purchase retrieved successfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time below 5000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase response contains data\", function () {",
+                  "    pm.expect(body).to.have.property(\"data\");",
+                  "});",
+                  "",
+                  "pm.test(\"Purchase ID matches created purchase\", function () {",
+                  "    const expectedId = Number(",
+                  "        pm.environment.get(\"purchase_id\")",
+                  "    );",
+                  "",
+                  "    const records = Array.isArray(body.data)",
+                  "        ? body.data",
+                  "        : [body.data];",
+                  "",
+                  "    pm.expect(",
+                  "        records.some(function (purchase) {",
+                  "            return Number(purchase.id) === expectedId;",
+                  "        })",
+                  "    ).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/purchases/{{purchase_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchases",
+                "{{purchase_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
